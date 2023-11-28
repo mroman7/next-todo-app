@@ -34,10 +34,14 @@ const AppContextProvider = ({ children }) => {
     });
     if(response?.data?.status == 200) {
         toast.success(response.data.message);
-        setTodos([
-            ...todos, 
-            response?.data?.todo
-        ]);
+        if(todos?.length > 0) {
+          setTodos([
+              ...todos, 
+              response?.data?.todo
+          ]);
+        } else {
+          setTodos([response?.data?.todo]);
+        }
     } else if(response?.data?.status !== 200) {
         toast.success(response.data.message);
     }
@@ -92,7 +96,7 @@ const AppContextProvider = ({ children }) => {
 
   useEffect(() => {
     getTodos();
-  }, [todos]);
+  }, []);
 
   return (
     <AppContext.Provider
