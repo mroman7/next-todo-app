@@ -12,7 +12,7 @@ export default function Input({
     ...otherProps
 }) {
     return (
-        <article className={`relative bg-white rounded-md px-4 py-2 flex items-center ${containerClass}`}>
+        <article className={`relative bg-white rounded-md px-2.5 py-2 flex items-center ${containerClass}`}>
             {
                 leftIcon &&
                 <div className='w-4 h-4'>{leftIcon}</div>

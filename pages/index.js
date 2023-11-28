@@ -4,16 +4,29 @@ import Avatar from '@/components/elements/avatar'
 import Input from '@/components/elements/input'
 import PlusIcon from '@/icons/PlusIcon'
 import Dropdown from '@/components/dropdown/dropdown'
-import { useState } from 'react'
 import EmptyState from '@/components/dropdown/empty-state'
+import TodoList from '@/components/todos/todo-list'
+import { useAppContext } from '@/context/app-context'
+import { useState } from 'react'
+
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
 
-  const [todos, setTodos] = useState([]);
+  const { todos, createNewTodo } = useAppContext();
+  const [newTodo, setNewTodo] = useState("");
+
+  const handleCreateTask = () => {
+    if(newTodo?.length > 0) {
+      createNewTodo(newTodo);
+      setNewTodo("");
+    } else {
+      alert("Please Enter Todo Title");
+    }
+  }
 
   return (
-    <main className='bg_img h-screen overflow-auto flex items-center justify-center'>
+    <main className='bg_img min-h-screen h-full py-8 overflow-auto flex items-center justify-center'>
       <section className="w-full sm:w-10/12 md:w-8/12 xl:w-4/12 p-4 mx-auto">
 
         <Avatar
@@ -23,17 +36,20 @@ export default function Home() {
         <div className="w-full xs:w-[400px] mt-6 mx-auto">
           <Input
             name='new_todo'
+            value={newTodo}
+            onChange={(e) => setNewTodo(e.target.value)}
             placeholder='Add New Task'
-            rightIcon={<button type='button' className='w-fit bg-primary-400 rounded p-1 hover:bg-opacity-60'><span className='w-5 h-5 block'><PlusIcon /></span></button>}
+            rightIcon={<button type='button' onClick={handleCreateTask} className='w-fit bg-primary-400 rounded p-1 hover:bg-opacity-60'><span className='block'><PlusIcon /></span></button>}
           />
 
           <Dropdown>
             {
               todos && todos?.length > 0 ?
-                ""
+                <TodoList 
+                  data={todos}
+                />
                 :
                 <EmptyState />
-
             }
           </Dropdown>
         </div>

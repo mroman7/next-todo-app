@@ -19,10 +19,7 @@ export default function Dropdown({ children }) {
                 <span className={`ml-auto w-5 h-5 block transition-all duration-100 ease-linear ${toggleDropdown ? 'rotate-0' : 'rotate-180'}`}><ChevronIcon /></span>
             </button>
 
-            <div className={`overflow-hidden transition-all duration-300 ${toggleDropdown ? 'h-full opacity-100 visible ' : 'h-0 opacity-0 invisible'}`}>
-                {
-                    
-                }
+            <div className={`overflow-hidden transition-all duration-300 ${toggleDropdown ? 'h-full opacity-100 visible ' : 'h-0 opacity-0 invisible'}`}>                
                 {children}
             </div>
         </section>
