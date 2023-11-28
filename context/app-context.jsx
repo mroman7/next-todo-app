@@ -86,8 +86,7 @@ const AppContextProvider = ({ children }) => {
     if(response?.data?.status == 200) { 
         toast.success(response.data.message);
 
-        let filterTodos = [...todos]?.filter((item, idx) => item._id !== _id);
-        setTodos([...filterTodos]);
+        getTodos();
 
     } else if(response?.data?.status !== 200) {
         toast.success(response.data.message);
