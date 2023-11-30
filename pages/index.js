@@ -16,8 +16,9 @@ export default function Home() {
   const { todos, createNewTodo } = useAppContext();
   const [newTodo, setNewTodo] = useState("");
 
-  const handleCreateTask = () => {
-    if(newTodo?.length > 0) {
+  const handleCreateTask = (e) => {
+    e.preventDefault();
+    if (newTodo?.length > 0) {
       createNewTodo(newTodo);
       setNewTodo("");
     } else {
@@ -34,18 +35,20 @@ export default function Home() {
         />
 
         <div className="w-full xs:w-[400px] mt-6 mx-auto">
-          <Input
-            name='new_todo'
-            value={newTodo}
-            onChange={(e) => setNewTodo(e.target.value)}
-            placeholder='Add New Task'
-            rightIcon={<button type='button' onClick={handleCreateTask} className='w-fit bg-primary-400 rounded p-1 hover:bg-opacity-60'><span className='block'><PlusIcon /></span></button>}
-          />
+          <form onSubmit={handleCreateTask}>
+            <Input
+              name='new_todo'
+              value={newTodo}
+              onChange={(e) => setNewTodo(e.target.value)}
+              placeholder='Add New Task'
+              rightIcon={<button type='submit' className='w-fit bg-primary-400 rounded p-1 hover:bg-opacity-60'><span className='block'><PlusIcon /></span></button>}
+            />
+          </form>
 
           <Dropdown>
             {
               todos && todos?.length > 0 ?
-                <TodoList 
+                <TodoList
                   data={todos}
                 />
                 :
